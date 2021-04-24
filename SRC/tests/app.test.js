@@ -64,6 +64,6 @@ describe("Teste 3 - atualização de um estudante", () => {
 });
 
 afterAll(done => {
-    app.close();
+    //app.close();
     done();
 });
