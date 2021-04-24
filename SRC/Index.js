@@ -9,11 +9,6 @@ app.use(express.json());
 app.use(cors());
 const repositories = [];
 
-//preparar para usar o express;
-const app = express();
-app.use(express.json());
-
-const repositories = [];
 // 1 paramentro o nome da rota 
 // 2 parametro ação que vou fazer 'função'
 //java script arrow function
