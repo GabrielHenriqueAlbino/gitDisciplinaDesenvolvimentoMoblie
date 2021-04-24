@@ -3,6 +3,7 @@ const request = require('supertest');
 const { uuid, isUuid } = require ('uuidv4');
 
 
+/*
 describe("Teste 1 - Criar novo estudante", () => {
     it("POST - teste metodo POST estudante", async () => {
         //chamada da API no metodo POST
@@ -67,3 +68,4 @@ afterAll(done => {
     //app.close();
     done();
 });
+*/
