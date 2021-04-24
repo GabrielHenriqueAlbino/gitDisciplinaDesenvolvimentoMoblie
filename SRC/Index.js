@@ -1,7 +1,13 @@
 //importando o pacote express
+const { request } = require ('express');
 const express = require ('express');
 const { uuid } = require ('uuidv4');
+const cors = require ('cors');
 
+const app = express();
+app.use(express.json());
+app.use(cors());
+const repositories = [];
 
 //preparar para usar o express;
 const app = express();
