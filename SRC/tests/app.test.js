@@ -1,71 +1,96 @@
-//const app = require('../index');
-const request = require('supertest');
-const { uuid, isUuid } = require ('uuidv4');
+const app = require('../index');
+const request = require ('supertest');
+const { validate : isUuid } = require("uuid");
+//Nome que descreve o teste
+//Ação que vou fazer do teste
 
-
-/*
-describe("Teste 1 - Criar novo estudante", () => {
-    it("POST - teste metodo POST estudante", async () => {
-        //chamada da API no metodo POST
-        const response = await request(app)
+    describe("Teste 1 - Criar novo paciente", () =>{
+        it ("POST", async () =>{
+        
+            //Chamada API metodo POST
+            const response = await request(app)
             .post("/")
             .send({
-                "name": "Gabriel",
-                "email": "gabriel@gmail.com"
-            })
-            .expect(200);
-        expect(isUuid(response.body.newStudent.id)).toBe(true);
-        expect(response.body).toMatchObject({
-            "newStudent": {
-                "name": "Gabriel",
-                "email": "gabriel@gmail.com"
-            }
-        });
-    });
-});
 
-describe("Teste 2 - deletar um estudante que não existe", () => {
-    it("DELETE - estudante 123 que não existe", async () => {
-        await request(app).delete('/123')
-            .expect(404);
-    });
-});
-
-describe("Teste 3 - atualização de um estudante", () => {
-    //2 passos cadastrar um estudante e depois eu vou atualizar ele
-    it("POST e PUT - teste metodo atualizar estudante", async () => {
-        //chamada da API no metodo POST
-        const response = await request(app)
-            .post("/")
-            .send({
-                "name": "Gabriel",
-                "email": "gabriel@gmail.com"
+                "name" : "Gabriel Henrique",
+                cpf : 13027926608,
+                peso : 72,
+                altura : 1.80,
+               
             })
-            .expect(200);
-        expect(isUuid(response.body.newStudent.id)).toBe(true);
-        expect(response.body).toMatchObject({
-            "newStudent": {
-                "name": "Gabriel",
-                "email": "gabriel@gmail.com"
-            }
-        });
-        //atualizar esse aluno
-        const responseUpd = await request(app)
-            .put(`/${response.body.newStudent.id}`)
-            .send({
-                "name": "Gabriel Henrique Albino",
-                "email": "g1@gmail.com"
-            })
-            .expect(200);
-        expect(responseUpd.body).toMatchObject({
-            "name": "Gabriel Henrique Albino",
-            "email": "g1@gmail.com"
-        });
-    });
-});
+                .expect(200);
+                expect(isUuid(response.body.newPaciente.id)).toBe(true);
+                expect(response.body).toMatchObject({
 
-afterAll(done => {
-    //app.close();
-    done();
-});
-*/
+                "newPaciente": {
+                        "name" : "Gabriel Henrique",
+                        cpf : 13027926608,
+                        peso : 72,
+                        altura : 1.80,
+                        imc :  24.691358024691358,
+                        "classificacao" : "Peso Normal"
+
+                }
+            
+
+                });
+             });
+         });
+
+         describe("Teste 2 - deletar um paciente que não existe", () => {
+            it("DELETE - paciente que não existe", async () => {
+                await request(app).delete('/123')
+                    .expect(404);
+            });
+        });
+
+        describe("Teste 3 - atualização de um paciente", () => {
+            //2 passos cadastrar um paciente e depois eu vou atualizar ele
+            it("POST e PUT - teste metodo atualizar paciente", async () => {
+                //chamada da API no metodo POST
+                const response = await request(app)
+                    .post("/")
+                    .send({
+                        "name" : "Gabriel Henrique",
+                         cpf : 13027926608,
+                         peso : 72,
+                        altura : 1.80
+                    })
+                    .expect(200);
+                expect(isUuid(response.body.newPaciente.id)).toBe(true);
+                expect(response.body).toMatchObject({
+                   
+                    "newPaciente": {
+                        "name" : "Gabriel Henrique",
+                        cpf : 13027926608,
+                        peso : 72,
+                        altura : 1.80,
+                        imc :  24.691358024691358,
+                        "classificacao" : "Peso Normal"
+                    }
+                });
+                
+                //atualizar esse paciente
+        
+                const responseUpd = await request(app)
+                    .put(`/${response.body.newPaciente.id}`)
+                    .send({
+                        "name" : "Gabriel",
+                         cpf : 13027926608,
+                         peso : 72,
+                        altura : 1.80
+                    })
+                    .expect(200);
+                expect(responseUpd.body).toMatchObject({
+                    "name" : "Daniel",
+                    cpf : 130279226608,
+                    peso : 72,
+                   altura : 1.80
+                });
+            });
+        });
+        
+        afterAll(done => {
+            app.close();
+            done();
+        });
